@@ -1,0 +1,5 @@
+#DEFINIR PRIOPRIDAD EN OSPF
+enable 
+conf ter
+int f1/0
+ip ospf priority [numero de prioridad]

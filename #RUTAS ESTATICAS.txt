@@ -1,0 +1,19 @@
+#AGERGAR UN LOOPBACK
+ena
+conf ter int lo0
+ip address do wr
+
+
+#ELIMINAR RUTA ESTAICA
+ena
+cof ter
+no ip route[ip][mascara]
+
+
+#MOSTRAR LAS RUTAS ESTATICAS
+do sh run | sec ip route
+
+
+#CONFIGURAR RUTAS FLOTANTES
+ena
+conf ter

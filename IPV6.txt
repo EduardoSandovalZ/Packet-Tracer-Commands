@@ -1,0 +1,81 @@
+#HABILITAR IPV6 EN LA INT DE UN ROUTER      
+enable
+conf ter
+int f0/1
+ipv6 enable
+
+
+
+#VERIFICAR IPV6 EN ROUTERS CISCO 
+enable
+conf ter
+show ipv6 interface [tipo de interfaz]
+
+#DEPURACION DE IPV6
+enable
+debug ipv6 packet
+debug ipv6 nd
+
+#ACITVAR IPv6 EN ROUTERS CISCO (esto en el gateway)
+enable
+conf ter
+ipv6 unicas-routing 
+
+#HABILITAR IPv6 EN UNA INT DEL ROUTER
+enable
+conf ter
+int f0/1
+ipv6 address <ipv6_add / prefijo>
+
+#HABILITAR AUTOCONFIG IPv6 DEL ROUTERS
+enable
+conf ter
+int f0/1
+ipv6 address autoconfig
+
+#VERIFICAR QUE SE HAYA AUTOCONFIGURADO
+enable
+sh ipv6 interface [tipo de la interfaz]
+
+#DEPURACION IPv6
+enable
+debug ipv6 packet
+debug ipv6
+
+#CONFIGURAR RUTAS ESTATICAS CON PROXIMO SALTO 
+enable
+conf ter
+ipv6 route [ipv6 / prefijo] ipv6-next-hop
+
+#CONFIGURAR RUTAS POR DEFECTO CON PROXIMO SALTO 
+enable
+conf ter
+ipv6 route ::/0 [ipv6-next-hop]
+
+
+
+#CONFIGURAR RUTAS ESTATICAS VIA INTERFAZ LOCAL
+enable
+conf ter
+ipv6 route [ipv6 / prefijo] interfaz-local
+
+#CONFIGURAR RUTAS POR DEFECTO VIA INTERFAZ LOCAL
+enable
+conf ter
+ipv6 route ::/0 [interfaz-local]
+
+#VERIFICAR LAS RUTAS ESTATICAS
+enable
+sh ipv6 route
+sh ipv6 interface brief
+sh run 
+
+
+
+
+#HABILITAR DUAL-STACK con EUI-64 EN UNA INT 
+enable
+conf ter
+int f0/1
+ip address 172.16.1.100 255.255.255.0
+ipv6 address 2001:::/64 eui-64

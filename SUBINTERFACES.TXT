@@ -1,0 +1,12 @@
+#CREAR UNA SUB INTERFAZ
+ena 
+conf ter
+int [nombre de la intrfaz].10 o .algo #EJEMPLO int f0/0.10 
+encapsulation dot10q [numero de vlan]
+ip address 
+
+
+#VERIFIFICACION DE LA RED
+ena 
+conf ter
+do sh int [numero de interfaz o de subinterfaz]

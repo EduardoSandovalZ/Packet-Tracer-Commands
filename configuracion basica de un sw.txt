@@ -1,0 +1,67 @@
+#configuracion basica de un sw
+#Si se hace directamente sobre el sw
+ena
+config ter
+hostname [nombre del sw]
+enable secret [password]
+ip default-gateway [direccion ip]
+
+
+#Si se hace por cable consola
+ena
+config ter
+line con 0  
+password [password]
+login 
+logging synchronous  
+exec 5 0
+do wr 
+
+
+#Configurar lineas VTY
+ena
+config ter
+line vty 0 15
+password [password]
+login 
+logging synchronous
+exec 5 0
+do wr 
+
+
+#agregar IP a una VLAN
+ena
+config ter
+int vlan 1 
+ip address [direccion ip de la vlan] [mascara de red] 
+description [descripcion de la vlan]
+no shut 
+do wr
+
+
+#Conectarte por TELNET 
+#Ya debe de tener una ip configurada la vlan 1 del switch 
+#Desde la compu 
+telnet [ip del switch] 
+
+
+#Copiar configuraciones
+copy running... startup...  
+copy startup... running...  
+
+
+#Configurar velocidad y duplex de un puerto
+ena
+config ter
+int f0/1 
+speed [10|100|auto]
+duplex [full|half|auto]
+no shut 
+do wr
+
+
+#Borrar una ip 
+ena 
+config ter
+int [nombre del puerto] 
+no ip address

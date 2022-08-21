@@ -1,0 +1,13 @@
+#HABILITAR ENRUTAMIENTO IPv6 Y OSPFv3 
+enable
+conf ter 
+ipv6 unicast-routing 
+ipv6 router ospf 1
+router-id [ip_add_32_bits]
+
+#CONFIGURAR OSPF
+enable
+conf ter
+int f0/1
+ipv6 address 2001:AAAA::1/64
+ipv6 ospf 1 area 0

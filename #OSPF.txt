@@ -1,0 +1,117 @@
+#OSPF (esto en el router)
+#PRIMERO LE ASIGNAMOS UNA IP 
+enable
+conf ter 
+int se 1/0
+ip address 172.16.1.1 255.255.255.0
+no shut 
+
+
+#CONFIGURAMOS EL OSPF
+ena 
+conf ter
+router ospf [proceso] #1 que es un proceso local
+router-id [ip_address] #valor dd 32 bits parecido a una ip
+network[red][wildcard] area [area-id] #area 0
+
+#CONFIGURAR OSPF PASIVO
+ena 
+conf ter
+router ospf 1
+passive-interface default
+
+#QUITAR CONFIGURAR OSPF PASIVO
+ena 
+conf ter
+router ospf 1
+no passive-interface [nombre de la interfaz]
+
+#OTRA FORMA DE HACERLO Y LA MEJOR (estatica)
+enable
+conf ter
+router ospf [proceso] 
+route-id [ipv4_address]
+
+#CONFIGURAR OSPF AREA DE TRANSITO EN INTERFAZ 
+enable
+conf ter
+int se 1/0 
+ip address 172.16.1.1 255.255.255.0
+ip ospf 1 area 0
+
+#CONFIGURAR OSPF AREA NO TRANSITO EN INTERFAZ 
+enable
+conf ter
+int se 1/1 
+ip address 172.16.1.1 255.255.255.0
+ip ospf 1 area 1
+
+#AUTENTICACION OSPF - TEXTO PLANO
+#Forma global 
+enable
+conf ter
+router ospf [proceso]
+area 1 authentication 
+
+#Forma interfaz 
+enable
+conf ter
+int f0/1
+ip ospf authentication
+ip ospf authentication-key [password]
+
+
+#AUTENTICACION OSPF - MD5
+#Forma global 
+enable
+conf ter
+router ospf [proceso]
+area 0 authentication message-digest
+
+#Forma interfaz 
+enable
+conf ter
+int f0/1
+ip ospf authentication message-digest
+ip ospf authentication-digest-key [key] md5 [password] #key no es llave, es llavero
+
+#VERIFICACION Y OPTIMIZACION 
+
+sh ip ospf database
+
+show ip route/ show ip route ospf 
+sh ip protocols
+sh ip ospf interface [int type]
+
+#RESOLUCION DE PROBLEMAS
+debug ip packet 
+debug ip ospf events
+debug ip ospf packet
+debug ip ospf adj
+
+
+#DEFINIR PRIOPRIDAD EN OSPF
+enable 
+conf ter
+int f1/0
+ip ospf priority [numero de prioridad]
+
+#CONFIGURAR TURA POR DEFECTO EN OSPF
+enable
+conf ter
+default-information originate [always] [metric][route-map][metric-type]
+
+#MOSTRAR CONFIGURACION
+sh run | sec router
+
+sh ip protocols 
+
+sh ip ospf neighbor
+
+sh ip ospf interface brief
+
+debug ip ospf adj
+
+
+
+clear ip ospf process

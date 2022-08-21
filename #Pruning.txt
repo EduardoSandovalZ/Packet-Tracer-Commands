@@ -1,0 +1,6 @@
+#Pruning 
+ena 
+config ter
+int [puerto al que queramos entrar] 
+sw trunk allow vlan remove [numero de vlan] 
+#

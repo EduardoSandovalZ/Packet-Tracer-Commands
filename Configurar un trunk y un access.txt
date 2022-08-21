@@ -1,0 +1,44 @@
+#Configurar un trunk y un access
+#Crear VLAN
+ena 
+config ter
+vlan [numero de vlan]
+#aqui ya estas dentro de la vlan, entonces solo debes de ponerle un nombre
+name [nombre de la vlan] 
+#le das a exit para poder crear mas VLAN
+
+
+#TRUNK 
+ena 
+config ter
+int range [tipo de puerto] f0/1 - 2
+sw mode trunk
+sw nonegociated 
+do wr
+
+
+#
+sw
+sw trunk encapsulation dot1q
+sw nonegociated
+#
+
+
+sh int trunk
+
+
+#ACCESS 
+ena 
+config ter
+int range [tipo de puerto] f0/1 - 2
+sw mode access
+#Configurar los puertos a una VLAN
+sw access vlan [el numero de vlan] 
+#Si requerimos configurar el spanning tree, eso se hace aqui 
+spanning... switch... 
+spanning... bpdu... enable
+do wr
+
+
+#Ver el spaning tree  
+show spaning tree [numero de vlan]

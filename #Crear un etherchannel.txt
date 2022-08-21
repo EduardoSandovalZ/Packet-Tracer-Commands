@@ -1,0 +1,10 @@
+#Crear un etherchannel 
+ena
+config ter 
+int range [puertos que vayamos a utilizar]
+shutdown 
+channel-protocol [lacp|pagp]
+channel-group [numero de grupo] mode [auto|desirable] #pagp O [ON|OFF] #lacp 
+#de un lado debe de estar en desirable y en el otro debe de estar en auto
+no shut 
+do wr
