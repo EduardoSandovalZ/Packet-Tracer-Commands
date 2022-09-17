@@ -44,6 +44,17 @@ do wr
 #Desde la compu 
 telnet [ip del switch] 
 
+#Conectarse por SSH
+ena
+conf t
+[no vale tener el nombre de SW por defecto]
+ip domain-name [algo.com]
+crypto key generate rsa 
+[numero de bits de encriptado]
+ip ssh authentication-retries 3
+username [usuario] password [contraseña]
+
+[no se te olvide ponerle una ip al ED del cual te quieres conectar]
 
 #Copiar configuraciones
 copy running... startup...  
