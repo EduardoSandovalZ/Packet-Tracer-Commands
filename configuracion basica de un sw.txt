@@ -52,7 +52,9 @@ ip domain-name [algo.com]
 crypto key generate rsa 
 [numero de bits de encriptado]
 ip ssh authentication-retries 3
-username [usuario] password [contraseña]
+line vty 0 4
+transport input ssh
+username [usuario] privilage [0-15] password [contraseña]
 
 [no se te olvide ponerle una ip al ED del cual te quieres conectar]
 
