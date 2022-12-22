@@ -3,9 +3,20 @@ Router#auto secure
 Router(conf)#service password-encryption
 Router(conf)#security paddwords min-length 8
 Router(conf)#login block-for 120 attempts 3 within 60
-Router(conf)#line vty 0 4
-Router(conf)#password cisco
-Router(conf)#exec-timeout 5 30
-Router(conf)#transport input ssh
+Router(conf-line)#line vty 0 4
+Router(conf-line)#password cisco
+Router(conf-line)#exec-timeout 5 30
+Router(conf-line)#transport input ssh
+Router(conf-line)#login local
 Router(conf)#end 
 Router# sh run | section line vty 
+
+
+#Borras clave rsa
+Router(conf)#crypto key zeroize rsa
+
+#Selecionar la version 2 de ssh
+Router(conf)#ip ssh version 2
+
+#Mostrar version ssh
+Router(conf)#show ip ssh
