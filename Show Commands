@@ -1,0 +1,26 @@
+#Mostrar todas las interfaces 
+sw1#show ip interface brief 
+sw1#show ipv6 interface brief 
+
+#Muestra los comandos aplicados a la interfaz especificada.
+sw1#show running-config interface [interface id]
+
+#mostrar el contenido de las tablas de enrutamiento
+sw1#show ip route
+sw1#show ipv6 route
+
+#Mostrar solo una seccion de de la informacion 
+R1#show running-config | section line con
+
+#Que incluya solo una parte de la info
+R1#show ip interface brief | include down
+
+#Que excluya una parte 
+R1#show ip interface brief | exclude up
+
+#Que muestre a partir cierta palabra 
+R1#show running-config | begin line
+
+#mostrar el historial de comandos aplicados
+R1>terminal history size 200
+R1>show history
