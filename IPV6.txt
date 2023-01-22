@@ -4,7 +4,9 @@ conf ter
 int f0/1
 ipv6 enable
 
-
+#Habilitar IPv6 en un switch
+sdm prefer dual-ipv4-and-ipv6 default
+reload
 
 #VERIFICAR IPV6 EN ROUTERS CISCO 
 enable
