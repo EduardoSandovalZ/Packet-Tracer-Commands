@@ -1,0 +1,3 @@
+#Comando para ver el estado de mdix la pipe y el include es para que solo se muestren los reultados e mdix
+S1# show controllers ethernet-controller fa0/1 phy | include MDIX
+Auto-MDIX : On [AdminState=1 Flags=0x00052248]
