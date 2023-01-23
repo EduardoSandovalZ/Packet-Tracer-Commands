@@ -46,15 +46,18 @@ telnet [ip del switch]
 
 #Conectarse por SSH
 ena
+S1# show ip ssh
 conf t
 [no vale tener el nombre de SW por defecto]
-ip domain-name [algo.com]
-crypto key generate rsa 
+ip domain-name cisco.com
+crypto key generate rsa 1024
 [numero de bits de encriptado]
 ip ssh authentication-retries 3
 line vty 0 4
 transport input ssh
-username [usuario] privilage [0-15] password [contraseña]
+login local
+username [usuario] privilage [0-15] password/secret [contraseña]
+ip ssh version 2
 
 [no se te olvide ponerle una ip al ED del cual te quieres conectar]
 
