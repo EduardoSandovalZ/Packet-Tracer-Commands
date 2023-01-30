@@ -1,0 +1,55 @@
+#ROUTER IN A STICK
+
+
+#SWITCH L3
+ena
+conf t
+#DEBEMOS CREAR LAS VLAN QUE VAYAMOS A ASIGNAR A LOS PORTS
+vlan [id de vlan]
+name [nombre de la vlan]
+int vlan [id de vlan]
+ip add [direccion ip de la vlan]
+#AHORA ENTRAMOS A LOS PORTS QUE QUEREMOS QUE TENGAN ACC A LAS VLAN
+int [puerto que queremos que tenga acceso a la vlan]
+sw mode acc
+sw acc vlan [id de vlan]
+sw non
+#AHORA DEBEMOS ENTRAR A LOS PUERTOS QUE VAN A COMUNICAR LOS SWITCHES AL ROUTER
+int [puerto que va se va a comunicar con el router]
+sw mode trunk
+sw non
+sw trunk nat vl [aqui comolamos el id de la vlan administrativa]
+
+#UNA VEZ TERMINADA LA CONFIG EN LOS SWITCHES DEBEMOS ENTRAR AL ROUTER PARA CREAR LAS SUB INTERFACES Y LAS VLANS SE PUEDAN COMUNICAR
+ena
+conf t
+int [numero de puerto.numero de la sub interfaz]
+#EJEMPLO: INT G0/0.1
+en do [id de la vlan]
+ip add [default gateway de la vlan]
+#PARA LEVANTAR TODAS LAS INTERFACES DEBEMOS DE ENTRAR AL PUERTO ORIGINAL DONDE PUSIMOS LAS INTERFACES Y LEVANTARLO
+int [interfaz original]
+no shut
+
+#PROCESO DE CONFIGURACION ENTRE VLANS USANDO UN SW L3
+#EN EL SW L3 CREAMOS LAS VLANS
+na
+conf t
+#DEBEMOS CREAR LAS VLAN QUE VAYAMOS A ASIGNAR A LOS PORTS
+vlan [id de vlan]
+name [nombre de la vlan]
+int vlan [id de vlan]
+#OJO, EN ESTE CASO LA VLAN VA A FUNGIR COMO LA DEFAULT GATEWAY, POR LO QUE DEBE TENER LA PRIMERA IP DISPONIBLE
+ip add [direccion ip de la vlan]
+#AHORA ENTRAMOS A LOS PORTS QUE QUEREMOS QUE TENGAN ACC A LAS VLAN
+int [puerto que queremos que tenga acceso a la vlan]
+sw mode acc
+sw acc vlan [id de vlan]
+sw non
+#EN ESTA PARTE ES DONDE CONECTAMOS EL SW L3 AL ROUTER, PARA ELLO DEBEMOS ENTRAR AL PUERTO QUE VA A ESTAR CONECTADO AL ROUTER Y SEGUIR LOS COMANDOS
+ip routing
+int [puerto que esta conectado al router]
+no sw 
+ip add [le asignamos la ip de la red de comunicacion entre el router y el sw L3]
+#LOS SWITCHES L3 USAN PROTOCOLOS DE ENRUTAMIENTO ESTATICO O DINAMICO, POR LO QUE PODEMOS USAR CUALQUIERA DE LOS 2 PARA QUE LAS VLAN TENGAN COMUNICACION
+#CON REDES FUERA DEL SW L3
