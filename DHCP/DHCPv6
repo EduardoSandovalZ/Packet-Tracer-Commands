@@ -49,3 +49,10 @@ R3(config-if)# ipv6 enable
 R3(config-if)# ipv6 address dhcp
 R3(config-if)# no shut
 R3(config-if)# do show ipv6 interface brief
+
+
+#Retransmicion 
+#Esto se hace cuando tenemos un servidor stateful 
+R1(config)# interface gigabitethernet 0/0/1
+R1(config-if)# ipv6 dhcp relay destination 2001:db8:acad:1::2 G0/0/0
+R1(config-if)# exit
