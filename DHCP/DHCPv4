@@ -1,0 +1,24 @@
+#Servidor
+R1(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.10
+R1(config)# ip dhcp excluded-address 192.168.10.254
+R1(config)# ip dhcp pool LAN-POOL-1
+R1(dhcp-config)# network 192.168.10.0 255.255.255.0
+R1(dhcp-config)# default-router 192.168.10.1
+R1(dhcp-config)# dns-server 192.168.11.5
+R1(dhcp-config)# domain-name example.com
+R1(dhcp-config)# interface g0/0/0
+R1(config-if)# ip address 192.168.10.1
+R1(config-if)# no shut
+R1(dhcp-config)# do show running-config | section dhcp
+
+#Cliente
+SOHO(config)# interface G0/0/1
+SOHO(config-if)# ip address dhcp
+SOHO(config-if)# no shutdown
+
+
+#en caso de que usemos un servidor dedicado para dhcp debemos de configurarel enrutador para que pueda transmitir las ips
+#Como se puede notar la direccion del serv 192.168.11.6 es distinta  al la red que va a dar las ip (192.168.10.0/24)
+R1(config)# interface g0/0/0
+R1(config-if)# ip helper-address 192.168.11.6
+R1(config-if)# finalizar
