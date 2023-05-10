@@ -1,0 +1,43 @@
+#primero debemos de saber cuales interfaces son troncales y cuales son acc
+Switch(config)#int range f0/1-10
+Switch(config-if-range)#sw mode acc
+Switch(config-if-range)#sw acc vlan [ponemos aqui la vlan]
+#co o nota, si el puerto esta en desuso lo asignamos a la vilan 1000 y apagamos el puerto
+Switch(config)#int range f0/11-20
+Switch(config-if-range)#sw mode acc
+Switch(config-if-range)#sw acc vlan 1000
+Switch(config-if-range)#shut
+
+#segundo ahora debemos de habilitar el port sec en los puertos de acc
+Switch(config)#int range f0/1-10
+Switch(config-if-range)#sw port 
+Switch(config-if-range)#sw port ag time 10
+Switch(config-if-range)#sw port max 1
+Switch(config-if-range)#sw port mac sticky
+Switch(config-if-range)#sw port vio restricted
+
+Switch(config-if-range)#do sh port-sec
+Switch(config-if-range)#do sh port-sec int [interfaz que queramos revisar]
+
+#tercero eliminar ataques dhcp, esto se hace en los puertos de acc
+Switch(config)#ip dhcp snooping
+Switch(config)#ip dhcp snoo vlan [vlan quew queramos escanear]
+Switch(config)#int range f0/1-10
+Switch(config-if-range)#ip dhcp snoo lim rate 6
+
+#en los troncales o conexiones seguras 
+Switch(config)#int range f0/21-24
+Switch(config-if-range)#ip dhcp snoo trust
+
+#cuarto eliminar ataques arp, esto se hace en los puertos de acc
+Switch(config)#ip dhcp snooping
+Switch(config)#ip arp ins vlan [vlan que queramos escanear]
+
+#en los troncales o conexiones seguras 
+Switch(config)#int range f0/21-24
+Switch(config-if-range)#ip arp ins trust
+
+#quinto eliminar ataques de stp, en este caso en los puertos de acc
+Switch(config)#int range f0/1-10
+Switch(config-if-range)#span portfast
+Switch(config-if-range)#spanning-tree bpduguard enable
